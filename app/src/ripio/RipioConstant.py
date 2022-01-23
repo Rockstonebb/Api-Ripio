@@ -13,3 +13,4 @@ RATE = "rate" #
 CURRENCY = "/currency"
 PAIR = "/pair"
 
+

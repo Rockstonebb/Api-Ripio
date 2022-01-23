@@ -1,2 +1,5 @@
 
 app/.vscode/launch.json
+**/__pycache__/
+docker-compose.yml
+docker

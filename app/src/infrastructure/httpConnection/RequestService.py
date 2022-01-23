@@ -5,58 +5,43 @@ from src.ripio.RipioConstant import CONTENT_TYPE
 from ..logger.LoggerService import LoggerService
 from ...resources.Properties import *
 import json
+from ..repository.Repository import Repository
 """
     returns json response
 """
+
+
 class RequestService:
-    
-    def __init__(self, baseUrl =  "https://www.google.com", contentType = {}) -> None:
+
+    def __init__(self, baseUrl="https://www.google.com", contentType={}) -> None:
         self.baseUrl = baseUrl
         self.contentType = CONTENT_TYPE if contentType != {} else contentType
-        self.logger = LoggerService(debug=True, mClass = "RequestService")
+        self.log = LoggerService(debug=True, mClass="RequestService")
         self.params = {}
-        
-    def getRequest(self,params = {}, baseUrl = "" ,endpoint = "/"):
+        self.repo = Repository()
+        self.endpoint = "/"
 
-        if baseUrl != "" and self.baseUrl != baseUrl:
-            self.baseUrl = baseUrl
-        if params != {} and self.params != params:
-            self.params = params
-        
-        self.baseUrl += "/"+endpoint
-        self.logger.logPrint(msg= ["baseUrl=",self.baseUrl,"params=",self.params])
-        
+    def getRequest(self, params={}, endpoint=""):
+
+        if endpoint != "/" :
+            endpoint = self.baseUrl+"/"+endpoint
+        self.log.info(
+            msg=["baseUrl=",endpoint, "params=", params])
+
         try:
-            response = requests.get(self.baseUrl, self.params)
-            return json.dumps(response.json(), indent=JSON_PRETTYPRINT_INDENTATION)
-        except Exception as err: 
-            self.logger.logPrint(err)
+            response = requests.get(endpoint, params)
+
+            if(JSON_PRETTYPRINT is True):
+                return json.dumps(response.json(), indent=JSON_PRETTYPRINT_INDENTATION)
+            return response.json()
+
+        except Exception as err:
+            self.log.error(err)
             return requests.HTTPError().response
-        
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def clearCache(self):
+        self.params = {}
+        self.endpoint = "/"
 
 # import socketio
 
@@ -85,4 +70,3 @@ class RequestService:
 
 # sio.connect('wss://api.exchange.ripio.com/ws/v1/')
 # sio.wait()
-
