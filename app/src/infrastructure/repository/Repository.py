@@ -25,11 +25,10 @@ class Repository:
     def migrate(self):
         pass
 
-    def getConfig(self,property):
+    def getConfig(self, property):
         try:
-            rs = self.conn.executeQuery("SELECT c.value FROM ripio_app.configs c where c.name = '"+property+"';")
+            rs = self.conn.executeQuery("SELECT c.value FROM ripio_app.configs c where c.name = '" + property + "';")
             return rs[0]
-
         except Exception as ex:
             self.log.error(ex)
 
@@ -62,6 +61,13 @@ class Repository:
             else:
                 query += x
         return query + ")"
+
+    def retrieveData(self, query, param):
+        try:
+            rs = self.conn.executeQuery(query, param)
+            return rs
+        except Exception as ex:
+            self.log.error(ex)
 
     def __validate__(self, param):
         # Check if is a DATETIME

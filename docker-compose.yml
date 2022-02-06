@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+
+  app:
+    depends_on:
+      - mysql_server
+    build:
+      context: ./app
+
+  # Backend service
+  mysql_server:
+    image: mysql:8.0.27
+    volumes:
+      - ./docker/migration:/docker-entrypoint-initdb.d:Z,ro
+      - ./docker/db:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "--password=root" ]
+      timeout: 10s
+      retries: 10
+    ports:
+      - "3307:3306"

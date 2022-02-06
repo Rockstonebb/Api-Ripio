@@ -1,4 +1,3 @@
-
 import mysql.connector as conn
 from ..logger.LoggerService import LoggerService
 from ...resources.Properties import SQL_HOST, SQL_PORT, SQL_USER, SQL_PWD, SQL_SCHEMA, SQL_SHOW, SQL_MIGRATION, \
@@ -9,6 +8,7 @@ class RepositoryConnector:
     """
 
     """
+
     def __init__(self):
         self.log = LoggerService(mClass="RepositoryConnector")
         self.conn = None
@@ -24,7 +24,6 @@ class RepositoryConnector:
         }
 
     def connection(self):
-
         try:
             self.conn = conn.connect(user=self.props["user"],
                                      password=self.props["pwd"],
@@ -33,9 +32,6 @@ class RepositoryConnector:
                                      database=self.props["schema"]
                                      )
             return self.conn
-        # self.logg.info(msg=["Connection Succeded", self.conn])
-        # self.conn.cursor().execute("USE {}".format(props["schema"]))
-        # self.logg.info(msg=["Schema", props["schema"]])
         except conn.Error as err:
             self.log.error(msg=[err.msg])
 
@@ -52,19 +48,15 @@ class RepositoryConnector:
         except Exception as exc:
             self.log.error(msg=[exc])
 
-    def executeQuery(self, query):
+    def executeQuery(self, query, param):
         try:
             cnx = self.connection()
             cursor = cnx.cursor()
-            cursor.execute(query)
-            value = cursor.fetchone()
-
+            cursor.execute(query, param)
+            value = cursor.fetchall()
             cursor.close()
             cnx.close()
             return value
         except Exception as exc:
             self.log.error(msg=[exc])
         pass
-
-
-

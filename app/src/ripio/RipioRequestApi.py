@@ -13,3 +13,4 @@ class RipioRequestApi:
 
     def getDataFromApi(self, endpoint, table):
         self.requestService.saveData(self.requestService.getDataFromApi(endpoint=endpoint), table=table)
+

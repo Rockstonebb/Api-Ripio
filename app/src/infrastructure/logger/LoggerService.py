@@ -1,5 +1,6 @@
 from datetime import datetime
-from ...resources.Properties import *
+
+from ...resources.Properties import DEBUG
 
 
 class LoggerService:

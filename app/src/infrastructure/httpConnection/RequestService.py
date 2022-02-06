@@ -1,11 +1,13 @@
 
 import requests
 
-from src.ripio.RipioConstant import CONTENT_TYPE
+
 from ..logger.LoggerService import LoggerService
-from ...resources.Properties import *
 import json
 from ..repository.Repository import Repository
+from ...resources.Properties import JSON_PRETTYPRINT_INDENTATION, JSON_PRETTYPRINT
+from ...ripio.RipioConstant import CONTENT_TYPE
+
 """
     returns json response
 """

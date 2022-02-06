@@ -6,8 +6,9 @@ JSON_PRETTYPRINT_INDENTATION = 4
 JSON_PRETTYPRINT = False
 
 # SQL Connection
-SQL_HOST = "127.0.0.1"
-SQL_PORT = 3306
+# SQL_HOST = "host.docker.internal"
+SQL_HOST = "localhost"
+SQL_PORT = 3307
 SQL_USER = "root"
 SQL_PWD = "root"
 SQL_SCHEMA = "ripio_app"

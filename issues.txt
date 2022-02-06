@@ -1,3 +1,4 @@
 
-TODO
-change id column in configs to be auto-increment
+#TODO
+# Change id column in configs to be auto-increment
+# Make rate.pair a foreign key and move pair,base,base_name,quote,quote_name to a different table
